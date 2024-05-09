@@ -1,8 +1,12 @@
 const router = require("express").Router();
 const getUser = require("../../modules/getUser");
 
-router.get("/:token", async (req, res) => {
-  const { token } = req.params;
+router.get("/", async (req, res) => {
+  const { token } = req.headers;
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 
   const user = await getUser(token);
 
