@@ -36,6 +36,9 @@ const readRoutes = (dir) => {
         }
 
         const routeLogic = require(path.join(__dirname, dir, file));
+        setTimeout(() => {
+          console.log(`> Loaded Route: ${routePath}`);
+        }, 1000);
         app.use(routePath, routeLogic);
       }
     }
