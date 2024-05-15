@@ -12,6 +12,7 @@ const botSchema = new mongoose.Schema({
   name: reqString,
   description: reqString,
   status: reqString,
+  avatar: reqString,
 });
 
 module.exports = mongoose.model("bot", botSchema);

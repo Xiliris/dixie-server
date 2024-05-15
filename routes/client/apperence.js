@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const botSchema = require("../../schemas/bot-schema");
+const uploadAvatar = require("../../middlewere/upload-avatar");
 
-router.post("/", async (req, res) => {
+router.post("/:id", uploadAvatar.single("avatar"), async (req, res) => {
   const { guildId, name, description, status } = req.body;
+  const avatar = req.file.filename;
 
   try {
     const bot = await botSchema.findOne({ guildId });
@@ -13,7 +15,7 @@ router.post("/", async (req, res) => {
 
     await botSchema.findOneAndUpdate(
       { guildId },
-      { name, description, status }
+      { name, description, status, avatar }
     );
 
     return res.status(200).json({ message: "Bot was updated." });
