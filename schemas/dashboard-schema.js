@@ -7,6 +7,7 @@ const reqString = {
 
 const dashboardSchema = new mongoose.Schema({
   guildId: reqString,
+  clientId: reqString,
 });
 
 module.exports = mongoose.model("dashboard", dashboardSchema);
