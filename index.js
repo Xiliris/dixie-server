@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const loadMongoDatabase = require("./database/loadMongoDatabase");
 const { loadRedisDatabase } = require("./database/loadRedisDatabase");
@@ -14,6 +15,7 @@ const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "storage")));
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello World" });
