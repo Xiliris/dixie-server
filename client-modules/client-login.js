@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 const botSchema = require("../schemas/bot-schema");
+const dashboard = require("../schemas/dashboard-schema");
 
 function clientLogin(token, guildId) {
   const client = new Client({
@@ -20,10 +21,8 @@ function clientLogin(token, guildId) {
     }
   });
 
-  client.on("messageCreate", (message) => {
-    if (message.content === "ping") {
-      message.reply("PONG!");
-    }
+  client.on("guildCreate", (guild) => {
+    guildSave(guild.id);
   });
 
   client.login(token);
@@ -42,6 +41,24 @@ async function clientSave(guildId, clientId, token) {
       guildId,
       clientId,
       token,
+    },
+    {
+      upsert: true,
+    }
+  );
+}
+
+async function guildSave(guildId) {
+  if (!guildId) {
+    return null;
+  }
+
+  await dashboard.findOneAndUpdate(
+    {
+      guildId,
+    },
+    {
+      guildId,
     },
     {
       upsert: true,
