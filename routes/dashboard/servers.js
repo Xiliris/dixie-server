@@ -32,6 +32,11 @@ router.get("/", async (req, res) => {
       }
     });
 
+    console.log(
+      "validGuilds: ",
+      validGuild.sort((a, b) => b.joined - a.joined)
+    );
+
     return res.status(200).json(validGuild.sort((a, b) => b.joined - a.joined));
   } catch (err) {
     console.log(err);
