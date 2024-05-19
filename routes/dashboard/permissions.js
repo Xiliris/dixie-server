@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const getGuilds = require("../../modules/getGuilds");
+const { redisClient } = require("../../database/loadRedisDatabase");
 
 router.get("/:id", async (req, res) => {
   try {
@@ -9,17 +9,8 @@ router.get("/:id", async (req, res) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const guilds = await getGuilds(token);
-
-    if (!guilds) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-
-    const vaildPermission = guilds.guilds.filter(
-      (guild) => (guild.permissions & 0x8) !== 0
-    );
-
-    const validGuild = vaildPermission.find((guild) => guild.id === id);
+    const user = JSON.parse(await redisClient.get(`guilds:${token}`));
+    const validGuild = user.guilds.find((guild) => guild.id === id);
 
     if (!validGuild) {
       return res.status(401).json({ message: "Unauthorized" });
