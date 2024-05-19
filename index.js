@@ -24,8 +24,8 @@ app.get("/", (req, res) => {
 loadRoutes(app, "../routes");
 loadMongoDatabase();
 loadRedisDatabase();
-logAllClients();
 clientLogin(process.env.CLIENT_TOKEN);
+logAllClients();
 
 app.use("*", (req, res) => {
   res.status(404).send({ Message: "Not Found" });
