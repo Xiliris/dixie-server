@@ -2,6 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const userSchema = require("../schemas/user-schema");
 const refreshToken = require("./refreshToken");
+const { redisClient } = require("../database/loadRedisDatabase");
 
 async function getGuilds(accessToken) {
   try {
@@ -26,7 +27,11 @@ async function getGuilds(accessToken) {
       getGuilds(await refreshToken(user.refresh_token));
     }
 
-    console.log(data);
+    redisClient.setEx(
+      `guilds:${user.access_token}`,
+      3600,
+      JSON.stringify({ guilds: data })
+    );
 
     return {
       guilds: data,

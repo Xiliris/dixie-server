@@ -9,9 +9,21 @@ const botSchema = new mongoose.Schema({
   guildId: reqString,
   clientId: reqString,
   token: reqString,
-  name: reqString,
-  description: reqString,
-  status: reqString,
+  name: {
+    type: String,
+    required: true,
+    default: "Dixie",
+  },
+  description: {
+    type: String,
+    required: true,
+    default: "I am cute!",
+  },
+  status: {
+    type: String,
+    required: true,
+    default: "online",
+  },
   avatar: reqString,
 });
 
