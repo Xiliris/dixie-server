@@ -35,12 +35,9 @@ async function deployCommands(client, token, commands) {
   const rest = new REST().setToken(token);
 
   try {
-    await rest.put(
-      Routes.applicationGuildCommands(client.user.id, process.env.GUILD_ID),
-      {
-        body: commands,
-      }
-    );
+    await rest.put(Routes.applicationCommands(client.user.id), {
+      body: commands,
+    });
   } catch (error) {
     console.error(error);
   }

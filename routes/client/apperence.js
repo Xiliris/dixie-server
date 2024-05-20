@@ -4,7 +4,11 @@ const uploadAvatar = require("../../middlewere/upload-avatar");
 
 router.post("/:id", uploadAvatar.single("avatar"), async (req, res) => {
   const { guildId, name, description, status } = req.body;
-  const avatar = req.file.filename;
+  let avatar = null;
+
+  if (req.file) {
+    avatar = req.file.filename;
+  }
 
   try {
     const bot = await botSchema.findOne({ guildId });
