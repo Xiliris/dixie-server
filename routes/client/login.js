@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  const validate = await clientValidate(token);
+  const validate = await clientValidate(token, guildId);
 
   if (!validate) {
     return res.status(401).json({ message: "Unauthorized" });

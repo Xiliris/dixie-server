@@ -3,7 +3,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "/storage");
+    cb(null, path.join(__dirname, "../storage/avatars/"));
   },
   resize: {
     width: 500,

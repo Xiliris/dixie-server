@@ -1,6 +1,6 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 
-async function clientValidate(token) {
+async function clientValidate(token, guildId) {
   const client = new Client({
     intents: [
       GatewayIntentBits.Guilds,

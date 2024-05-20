@@ -1,4 +1,6 @@
 const { Client, GatewayIntentBits } = require("discord.js");
+const registerCommands = require("../handlers/register-commands");
+const commandHandler = require("../handlers/command-handler");
 const botSchema = require("../schemas/bot-schema");
 const dashboard = require("../schemas/dashboard-schema");
 
@@ -13,8 +15,9 @@ function clientLogin(token, guildId) {
     ],
   });
 
-  client.on("ready", () => {
+  client.once("ready", () => {
     console.log(`> Logged in as ${client.user.tag}`);
+    registerCommands(client, token);
 
     if (guildId) {
       clientSave(guildId, client.user.id, token);
@@ -23,6 +26,10 @@ function clientLogin(token, guildId) {
 
   client.on("guildCreate", (guild) => {
     guildSave(guild.id);
+  });
+
+  client.on("interactionCreate", async (interaction) => {
+    commandHandler(client, interaction);
   });
 
   client.login(token);

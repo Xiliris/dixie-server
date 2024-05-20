@@ -10,6 +10,11 @@ router.get("/:id", async (req, res) => {
     }
 
     const user = JSON.parse(await redisClient.get(`guilds:${token}`));
+
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
     const validGuild = user.guilds.find((guild) => guild.id === id);
 
     if (!validGuild) {
