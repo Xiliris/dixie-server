@@ -1,12 +1,19 @@
 const router = require("express").Router();
-const clientLogin = require("../../client-modules/client-login");
-const clientValidate = require("../../client-modules/client-validate");
+const clientLogin = require("../../bot/index");
+const clientValidate = require("../../bot/client-modules/client-validate");
+const botSchema = require("../../schemas/bot-schema");
 
 router.post("/", async (req, res) => {
   const { token, guildId } = req.body;
 
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  const bot = await botSchema.findOne({ token });
+
+  if (bot) {
+    return res.status(401).json({ message: "Client already created." });
   }
 
   const validate = await clientValidate(token, guildId);

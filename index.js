@@ -8,8 +8,8 @@ const path = require("path");
 const loadMongoDatabase = require("./database/loadMongoDatabase");
 const { loadRedisDatabase } = require("./database/loadRedisDatabase");
 const loadRoutes = require("./handlers/route-handler");
-const clientLogin = require("./client-modules/client-login");
-const logAllClients = require("./client-modules/client-data");
+const logAllClients = require("./bot/client-modules/client-data");
+require("./bot/index");
 
 const PORT = process.env.PORT;
 
@@ -24,7 +24,6 @@ app.get("/", (req, res) => {
 loadRoutes(app, "../routes");
 loadMongoDatabase();
 loadRedisDatabase();
-clientLogin(process.env.CLIENT_TOKEN);
 logAllClients();
 
 app.use("*", (req, res) => {

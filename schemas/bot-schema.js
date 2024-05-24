@@ -14,15 +14,20 @@ const botSchema = new mongoose.Schema({
     required: true,
     default: "Dixie",
   },
-  description: {
-    type: String,
-    required: true,
-    default: "I am cute!",
-  },
   status: {
     type: String,
     required: true,
     default: "online",
+  },
+  activityType: {
+    type: String,
+    required: true,
+    default: "PLAYING",
+  },
+  activity: {
+    type: String,
+    required: true,
+    default: "Dixie Bot",
   },
   avatar: reqString,
 });
