@@ -1,5 +1,5 @@
-const clientLogin = require("./client-login");
-const botSchema = require("../schemas/bot-schema");
+const clientLogin = require("../client-modules/client-login");
+const botSchema = require("../../schemas/bot-schema");
 
 function logAllClients() {
   botSchema.find().then((results) => {

@@ -21,6 +21,7 @@ const loadRoutes = (app, dir) => {
 
         const routeLogic = require(path.join(__dirname, dir, file));
         app.use(routePath, routeLogic);
+        console.log(`> Loaded route: ${routePath}`);
       }
     }
   }

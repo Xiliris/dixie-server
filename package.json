@@ -19,6 +19,7 @@
     "mongoose": "^8.3.3",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.0",
+    "obscenity": "^0.2.1",
     "redis": "^4.6.13"
   }
 }
