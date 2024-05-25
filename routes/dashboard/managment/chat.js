@@ -16,8 +16,6 @@ router.get("/:id", async (req, res) => {
     const guildChannels = await getGuildChannels(id);
     const guildRoles = await getGuildRoles(id);
 
-    console.log(guildChannels, guildRoles);
-
     return res.status(200).json({
       chat: dashboard.chatManagment,
       channels: guildChannels,

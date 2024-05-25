@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const clientLogin = require("../../bot/index");
+const clientLogin = require("../../bot/client-modules/client-login");
 const clientValidate = require("../../bot/client-modules/client-validate");
 const botSchema = require("../../schemas/bot-schema");
 
