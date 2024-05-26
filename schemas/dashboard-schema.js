@@ -1,8 +1,16 @@
+const { channelLink } = require("discord.js");
 const mongoose = require("mongoose");
 
 const reqString = {
   type: String,
   required: true,
+  default: "",
+};
+
+const reqBoolean = {
+  type: Boolean,
+  required: true,
+  default: false,
 };
 
 const chatManagment = {
@@ -39,6 +47,24 @@ const dashboardSchema = new mongoose.Schema({
     DISCORD_INVITES: chatManagment,
     CAPS: chatManagment,
     MASS_MENTION: chatManagment,
+  },
+  welcomeGoodbye: {
+    welcomeMessage: {
+      enabled: reqBoolean,
+      channel: reqString,
+      text: reqString,
+    },
+    welcomeImage: {
+      enabled: reqBoolean,
+      channel: reqString,
+      image: reqString,
+      text: reqString,
+    },
+    goodbyeMessage: {
+      enabled: reqBoolean,
+      channel: reqString,
+      text: reqString,
+    },
   },
 });
 

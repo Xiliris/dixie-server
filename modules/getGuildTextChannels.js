@@ -1,6 +1,6 @@
 const client = require("../bot/index");
 
-function getGuildChannels(guildId) {
+function getTextGuildChannels(guildId) {
   const guild = client.guilds.cache.get(guildId);
 
   if (!guild) {
@@ -22,4 +22,4 @@ function getGuildChannels(guildId) {
   return channelList;
 }
 
-module.exports = getGuildChannels;
+module.exports = getTextGuildChannels;

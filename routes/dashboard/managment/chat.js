@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const dashboardSchema = require("../../../schemas/dashboard-schema");
-const getGuildChannels = require("../../../modules/getGuildChannels");
+const getGuildTextChannels = require("../../../modules/getGuildTextChannels");
 const getGuildRoles = require("../../../modules/getGuildRoles");
 
 router.get("/:id", async (req, res) => {
@@ -13,7 +13,7 @@ router.get("/:id", async (req, res) => {
       return res.status(404).json({ message: "Dashboard not found." });
     }
 
-    const guildChannels = await getGuildChannels(id);
+    const guildChannels = await getGuildTextChannels(id);
     const guildRoles = await getGuildRoles(id);
 
     return res.status(200).json({
