@@ -3,6 +3,7 @@ const registerCommands = require("./client-handlers/command-register");
 const commandHandler = require("./client-handlers/command-handler");
 const clientApperence = require("./client-modules/client-apperence");
 const messageHandler = require("./client-handlers/message-handler");
+const welcomeHandler = require("./client-handlers/welcome-handler");
 const { guildSave } = require("./client-modules/client-database");
 const token = process.env.CLIENT_TOKEN;
 
@@ -42,6 +43,10 @@ client.on("messageCreate", (message) => {
   }
 
   messageHandler(client, message);
+});
+
+client.on("guildMemberAdd", (member) => {
+  welcomeHandler(member);
 });
 
 client.login(token);

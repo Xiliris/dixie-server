@@ -2,6 +2,7 @@ const { Client, GatewayIntentBits } = require("discord.js");
 const registerCommands = require("../client-handlers/command-register");
 const commandHandler = require("../client-handlers/command-handler");
 const messageHandler = require("../client-handlers/message-handler");
+const welcomeHandler = require("../client-handlers/welcome-handler");
 const clientApperence = require("./client-apperence");
 const { clientSave, guildSave } = require("./client-database");
 
@@ -48,6 +49,10 @@ function clientLogin(token, guildId) {
     }
 
     messageHandler(client, message);
+  });
+
+  client.on("guildMemberAdd", (member) => {
+    welcomeHandler(member);
   });
 
   client.login(token);

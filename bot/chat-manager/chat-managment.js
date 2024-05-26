@@ -19,8 +19,8 @@ async function chatManagment(client, message) {
 
   if (chatManagment && chatManagment.LINKS) {
     if (message.author.bot) return;
-    /*if (message.member.permissions.has(PermissionsBitField.Flags.Administrator))
-      return;*/
+    if (message.member.permissions.has(PermissionsBitField.Flags.Administrator))
+      return;
 
     chatLinks(message, chatManagment.LINKS);
     chatSpam(message, chatManagment.SPAM);
