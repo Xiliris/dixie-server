@@ -65,6 +65,15 @@ const dashboardSchema = new mongoose.Schema({
       channel: reqString,
       text: reqString,
     },
+    administration: {
+      warnings: [
+        {
+          numInfractions: { type: Number, required: true },
+          punishmentType: { type: String, required: true },
+          time: { type: Number, required: true },
+        },
+      ],
+    },
   },
 });
 
