@@ -5,7 +5,7 @@ const reqString = {
   required: true,
 };
 
-const userSchema = new mongoose.Schema({
+const guildUserSchema = new mongoose.Schema({
   discordId: reqString,
   guildId: reqString,
   warnings: {
