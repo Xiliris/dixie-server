@@ -7,13 +7,19 @@ const reqString = {
   default: "",
 };
 
+const optionalString = {
+  type: String,
+  required: false,
+  default: "",
+};
+
 const reqBoolean = {
   type: Boolean,
   required: true,
   default: false,
 };
 
-const chatManagment = {
+const chatManagement = {
   enabled: {
     type: Boolean,
     default: false,
@@ -38,42 +44,42 @@ const chatManagment = {
 
 const dashboardSchema = new mongoose.Schema({
   guildId: reqString,
-  clientId: reqString,
-  chatManagment: {
-    SPAM: chatManagment,
-    LINKS: chatManagment,
-    BAD_WORDS: chatManagment,
-    REPEATED_MESSAGES: chatManagment,
-    DISCORD_INVITES: chatManagment,
-    CAPS: chatManagment,
-    MASS_MENTION: chatManagment,
+  clientId: optionalString,
+  chatManagement: {
+    SPAM: chatManagement,
+    LINKS: chatManagement,
+    BAD_WORDS: chatManagement,
+    REPEATED_MESSAGES: chatManagement,
+    DISCORD_INVITES: chatManagement,
+    CAPS: chatManagement,
+    MASS_MENTION: chatManagement,
   },
   welcomeGoodbye: {
     welcomeMessage: {
       enabled: reqBoolean,
-      channel: reqString,
-      text: reqString,
+      channel: optionalString,
+      text: optionalString,
     },
     welcomeImage: {
       enabled: reqBoolean,
-      channel: reqString,
-      image: reqString,
-      text: reqString,
+      channel: optionalString,
+      image: optionalString,
+      text: optionalString,
     },
     goodbyeMessage: {
       enabled: reqBoolean,
-      channel: reqString,
-      text: reqString,
+      channel: optionalString,
+      text: optionalString,
     },
-    administration: {
-      warnings: [
-        {
-          numInfractions: { type: Number, required: true },
-          punishmentType: { type: String, required: true },
-          time: { type: Number, required: true },
-        },
-      ],
-    },
+  },
+  administration: {
+    warnings: [
+      {
+        numInfractions: { type: Number, required: false },
+        punishmentType: { type: String, required: false },
+        time: { type: Number, required: false },
+      },
+    ],
   },
 });
 
