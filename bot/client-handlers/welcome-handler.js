@@ -4,6 +4,8 @@ const botSchema = require("../../schemas/bot-schema");
 async function welcomeHandler(member) {
   const dashboard = await dashboardSchema.findOne({ guildId: member.guild.id });
 
+  
+
   if (!dashboard) {
     return null;
   }
