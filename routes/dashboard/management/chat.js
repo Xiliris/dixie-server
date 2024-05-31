@@ -5,7 +5,6 @@ const getGuildRoles = require("../../../modules/getGuildRoles");
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-
   try {
     const dashboard = await dashboardSchema.findOne({ guildId: id });
 
@@ -17,7 +16,7 @@ router.get("/:id", async (req, res) => {
     const guildRoles = await getGuildRoles(id);
 
     return res.status(200).json({
-      chat: dashboard.chatManagment,
+      chat: dashboard.chatManagement,
       channels: guildChannels,
       roles: guildRoles,
     });
@@ -29,12 +28,12 @@ router.get("/:id", async (req, res) => {
 
 router.post("/:id", async (req, res) => {
   const { id } = req.params;
-  const { chatManagment } = req.body;
+  const { chatManagement } = req.body;
 
   try {
     await dashboardSchema.findOneAndUpdate(
       { guildId: id },
-      { chatManagment },
+      { chatManagement },
       { upsert: true }
     );
 
