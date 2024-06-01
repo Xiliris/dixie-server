@@ -4,7 +4,7 @@ const commandHandler = require("./client-handlers/command-handler");
 const clientApperence = require("./client-modules/client-apperence");
 const messageHandler = require("./client-handlers/message-handler");
 const welcomeHandler = require("./client-handlers/welcome-handler");
-const { guildSave } = require("./client-modules/client-database");
+const { guildSave, guildDelete } = require("./client-modules/client-database");
 const token = process.env.CLIENT_TOKEN;
 
 const client = new Client({
@@ -25,6 +25,10 @@ client.once("ready", () => {
 
 client.on("guildCreate", (guild) => {
   guildSave(client, guild);
+});
+
+client.on("guildDelete", (guild) => {
+  guildDelete(guild.id);
 });
 
 client.on("interactionCreate", async (interaction) => {

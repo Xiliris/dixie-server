@@ -6,6 +6,10 @@ router.get("/", async (req, res) => {
   try {
     const { token } = req.headers;
 
+    if (!token) {
+      return res.status(400).json({ message: "Token is required" });
+    }
+
     const guilds = await getGuilds(token);
 
     if (!guilds) {
@@ -24,17 +28,17 @@ router.get("/", async (req, res) => {
       );
     });
 
-    const validGuild = vaildPermission.map((guild) => {
-      if (botJoined.includes(guild)) {
-        return { ...guild, joined: true };
-      } else {
-        return { ...guild, joined: false };
-      }
-    });
+    const validGuild = vaildPermission.map((guild) => ({
+      ...guild,
+      joined: botJoined.some((joinedGuild) => joinedGuild.id === guild.id),
+    }));
+
+    console.log(validGuild);
 
     return res.status(200).json(validGuild.sort((a, b) => b.joined - a.joined));
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
