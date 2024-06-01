@@ -27,6 +27,16 @@ async function guildSave(client, guild) {
   );
 }
 
+async function guildDelete(guildId) {
+  if (!guildId) {
+    return null;
+  }
+
+  await dashboard.findOneAndDelete({
+    guildId,
+  });
+}
+
 async function clientSave(guildId, clientId, token) {
   if (!guildId || !clientId || !token) {
     return null;
@@ -47,4 +57,4 @@ async function clientSave(guildId, clientId, token) {
   );
 }
 
-module.exports = { guildSave, clientSave };
+module.exports = { guildSave, clientSave, guildDelete };
