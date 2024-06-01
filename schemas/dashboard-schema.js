@@ -79,6 +79,12 @@ const dashboardSchema = new mongoose.Schema({
         time: { type: Number, required: false },
       },
     ],
+    commands: [
+      {
+        command: { type: String, required: true },
+        roles: { type: Array, default: [] },
+      },
+    ],
   },
 });
 
