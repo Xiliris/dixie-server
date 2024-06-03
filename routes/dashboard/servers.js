@@ -33,8 +33,6 @@ router.get("/", async (req, res) => {
       joined: botJoined.some((joinedGuild) => joinedGuild.id === guild.id),
     }));
 
-    console.log(validGuild);
-
     return res.status(200).json(validGuild.sort((a, b) => b.joined - a.joined));
   } catch (err) {
     console.error(err);
