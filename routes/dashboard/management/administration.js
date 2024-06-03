@@ -11,9 +11,9 @@ router.get("/:id", async (req, res) => {
       return res.status(404).json({ message: "Dashboard not found!" });
     }
 
-    const warnings = dashboard.administration.warnings;
+    const { warnings, commands } = dashboard.administration;
 
-    res.status(200).json({ warnings });
+    return res.status(200).json({ warnings, commands });
   } catch (error) {
     console.error("Error fetching dashboard data:", error);
     res.status(500).json({ message: error.message });
@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/:id", async (req, res) => {
   const { id } = req.params;
-  const { infractions, clientId } = req.body;
+  const { infractions, commands } = req.body;
 
   try {
     let dashboard = await dashboardSchema.findOne({ guildId: id });
@@ -30,12 +30,11 @@ router.post("/:id", async (req, res) => {
     if (!dashboard) {
       dashboard = new dashboardSchema({
         guildId: id,
-        clientId: clientId || undefined,
-        administration: { warnings: infractions },
+        administration: { warnings: infractions, commands },
       });
     } else {
-      dashboard.clientId = clientId || dashboard.clientId;
       dashboard.administration.warnings = infractions;
+      dashboard.administration.commands = commands;
     }
 
     await dashboard.save();
