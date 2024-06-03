@@ -82,7 +82,7 @@ const dashboardSchema = new mongoose.Schema({
     commands: [
       {
         command: { type: String, required: true },
-        roles: { type: Array, default: [] },
+        roles: { type: [String], default: [] },
       },
     ],
   },
