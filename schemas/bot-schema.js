@@ -8,6 +8,7 @@ const reqString = {
 const botSchema = new mongoose.Schema({
   guildId: reqString,
   clientId: reqString,
+  userId: reqString,
   token: reqString,
   name: {
     type: String,

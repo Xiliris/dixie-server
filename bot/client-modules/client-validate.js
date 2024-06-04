@@ -13,8 +13,13 @@ async function clientValidate(token) {
 
   try {
     await client.login(token);
+    const userObj = {
+      name: client.user.username,
+      clientId: client.user.id,
+    };
+
     client.destroy();
-    return true;
+    return userObj;
   } catch (err) {
     return false;
   }
