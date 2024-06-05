@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const clientValidate = require("../../bot/client-modules/client-validate");
-const getUser = require("../../modules/getUser");
-const botSchema = require("../../schemas/bot-schema");
+const clientValidate = require("../../../../bot/client-modules/client-validate");
+const getUser = require("../../../../modules/getUser");
+const botSchema = require("../../../../schemas/bot-schema");
 
 router.post("/", async (req, res) => {
   const { personalBotToken } = req.body;

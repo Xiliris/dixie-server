@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const botSchema = require("../../../schemas/bot-schema");
+const botSchema = require("../../../../schemas/bot-schema");
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
@@ -14,6 +14,7 @@ router.get("/:id", async (req, res) => {
     return res.status(200).json(bot);
   } catch (err) {
     console.log(err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

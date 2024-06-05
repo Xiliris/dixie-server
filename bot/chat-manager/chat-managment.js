@@ -9,9 +9,13 @@ const chatCaps = require("./chat-modules/chat-caps");
 const chatMassMention = require("./chat-modules/chat-mass-mention");
 
 async function chatManagment(client, message) {
-  const { chatManagment } = await dashboardSchema.findOne({
+  const dashboard = await dashboardSchema.findOne({
     guildId: message.guild.id,
   });
+
+  const chatManagment = dashboard.chatManagement;
+
+  console.log(chatManagment);
 
   if (!chatManagment) {
     return null;
