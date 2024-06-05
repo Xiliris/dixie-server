@@ -30,8 +30,6 @@ router.post("/:id", async (req, res) => {
   const { id } = req.params;
   const { chatManagement } = req.body;
 
-  console.log("data", chatManagement);
-
   try {
     await dashboardSchema.findOneAndUpdate(
       { guildId: id },

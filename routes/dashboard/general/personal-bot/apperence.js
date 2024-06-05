@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const botSchema = require("../../schemas/bot-schema");
-const uploadAvatar = require("../../middlewere/upload-avatar");
-const clientUpdate = require("../../bot/client-modules/client-update");
+const botSchema = require("../../../../schemas/bot-schema");
+const uploadAvatar = require("../../../../middlewere/upload-avatar");
+const clientUpdate = require("../../../../bot/client-modules/client-update");
 
 router.post("/:id", uploadAvatar.single("avatar"), async (req, res) => {
   const { guildId, name, status, activityType, activity } = req.body;
