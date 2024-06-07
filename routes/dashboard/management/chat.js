@@ -21,8 +21,8 @@ router.get("/:id", async (req, res) => {
       roles: guildRoles,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error(err);
+    res.status(500).json({ message: "There was an error!" });
   }
 });
 
@@ -37,12 +37,10 @@ router.post("/:id", async (req, res) => {
       { upsert: true }
     );
 
-    return res
-      .status(200)
-      .json({ message: "Chat management settings updated successfully." });
+    return res.status(200).json({ message: "Submit was successful!" });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error(err);
+    res.status(500).json({ message: "There was an error!" });
   }
 });
 

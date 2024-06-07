@@ -38,9 +38,9 @@ router.post("/:id", async (req, res) => {
     }
 
     await dashboard.save();
-    res.status(200).json({ message: "Data saved successfully!" });
+    res.status(200).json({ message: "Submit was successful!" });
   } catch (error) {
-    console.error("Error saving dashboard data:", error);
+    console.error("There was an error!", error);
     res.status(500).json({ message: error.message });
   }
 });
