@@ -1,20 +1,11 @@
 require("dotenv").config();
-const redisClient = require("../database/loadRedisDatabase").redisClient;
 const axios = require("axios");
 const userSchema = require("../schemas/user-schema");
 const refreshToken = require("./refreshToken");
+const { redisClient } = require("../database/loadRedisDatabase");
 
-async function getUser(accessToken) {
+async function getGuilds(accessToken) {
   try {
-    const cachedUser = await redisClient.get(`user:${accessToken}`);
-
-    if (cachedUser) {
-      return {
-        user: JSON.parse(cachedUser).user,
-        token: accessToken,
-      };
-    }
-
     const user = await userSchema.findOne({
       access_token: accessToken,
     });
@@ -24,7 +15,7 @@ async function getUser(accessToken) {
     }
 
     const { data, status } = await axios.get(
-      "https://discord.com/api/v10/users/@me",
+      "https://discord.com/api/v10/users/@me/guilds",
       {
         headers: {
           authorization: `Bearer ${user.access_token}`,
@@ -33,17 +24,17 @@ async function getUser(accessToken) {
     );
 
     if (status === 401) {
-      getUser(await refreshToken(user.refresh_token));
+      getGuilds(await refreshToken(user.refresh_token));
     }
 
     redisClient.setEx(
-      `user:${user.access_token}`,
+      `guilds:${user.access_token}`,
       3600,
-      JSON.stringify({ user: data })
+      JSON.stringify({ guilds: data })
     );
 
     return {
-      user: data,
+      guilds: data,
       token: user.access_token,
     };
   } catch (err) {
@@ -51,4 +42,4 @@ async function getUser(accessToken) {
   }
 }
 
-module.exports = getUser;
+module.exports = getGuilds;

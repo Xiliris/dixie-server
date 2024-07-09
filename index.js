@@ -1,50 +1,32 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const path = require("path");
 const cors = require("cors");
-const fs = require("fs");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const loadMongoDatabase = require("./database/loadMongoDatabase");
 const { loadRedisDatabase } = require("./database/loadRedisDatabase");
+const loadRoutes = require("./handlers/route-handler");
+const signToken = require("./middlewere/sign-token"); // Corrected typo here
+const logAllClients = require("./bot/client-modules/client-data");
+require("./bot/index");
 
 const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "storage")));
+app.use(signToken);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello World" });
 });
 
-const readRoutes = (dir) => {
-  const files = fs.readdirSync(path.join(__dirname, dir));
-  for (const file of files) {
-    const stat = fs.lstatSync(path.join(__dirname, dir, file));
-    if (stat.isDirectory()) {
-      readRoutes(path.join(dir, file));
-    } else {
-      if (file.endsWith(".js")) {
-        let routePath = `${dir}/${file}`
-          .replace("routes", "")
-          .replace(".js", "")
-          .replace("\\", "/");
-
-        if (file === "main.js") {
-          routePath = routePath.replace("main", "");
-        }
-
-        const routeLogic = require(path.join(__dirname, dir, file));
-        app.use(routePath, routeLogic);
-      }
-    }
-  }
-};
-
-readRoutes("routes");
+loadRoutes(app, "../routes");
 loadMongoDatabase();
 loadRedisDatabase();
+logAllClients();
 
 app.use("*", (req, res) => {
   res.status(404).send({ Message: "Not Found" });
