@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits } = require("discord.js");
+const clientApperence = require("./client-apperence");
 
 async function clientValidate(token) {
   const client = new Client({
@@ -11,9 +12,13 @@ async function clientValidate(token) {
     ],
   });
 
+  client.once("ready", async () => {
+    await clientApperence(client);
+    client.destroy();
+  });
+
   try {
     await client.login(token);
-    client.destroy();
     return true;
   } catch (err) {
     return false;

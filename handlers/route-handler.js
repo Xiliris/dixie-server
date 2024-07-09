@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const authToken = require("../middlewere/auth-token");
 
 const loadRoutes = (app, dir) => {
   const files = fs.readdirSync(path.join(__dirname, dir));
@@ -20,7 +21,8 @@ const loadRoutes = (app, dir) => {
         }
 
         const routeLogic = require(path.join(__dirname, dir, file));
-        app.use(routePath, routeLogic);
+        app.use(routePath, authToken, routeLogic);
+        console.log(`> Loaded route: ${routePath}`);
       }
     }
   }

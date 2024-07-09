@@ -8,21 +8,27 @@ const reqString = {
 const botSchema = new mongoose.Schema({
   guildId: reqString,
   clientId: reqString,
+  userId: reqString,
   token: reqString,
   name: {
     type: String,
     required: true,
     default: "Dixie",
   },
-  description: {
-    type: String,
-    required: true,
-    default: "I am cute!",
-  },
   status: {
     type: String,
     required: true,
     default: "online",
+  },
+  activityType: {
+    type: String,
+    required: true,
+    default: "PLAYING",
+  },
+  activity: {
+    type: String,
+    required: true,
+    default: "Dixie Bot",
   },
   avatar: reqString,
 });
