@@ -63,7 +63,10 @@ const dashboardSchema = new mongoose.Schema({
       enabled: reqBoolean,
       channel: optionalString,
       image: optionalString,
-      text: optionalString,
+      text: {
+        enabled: reqBoolean,
+        text: optionalString,
+      },
     },
     goodbyeMessage: {
       enabled: reqBoolean,

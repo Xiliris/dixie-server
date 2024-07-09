@@ -15,8 +15,6 @@ async function chatManagment(client, message) {
 
   const chatManagment = dashboard.chatManagement;
 
-  console.log(chatManagment);
-
   if (!chatManagment) {
     return null;
   }

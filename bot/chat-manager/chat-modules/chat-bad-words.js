@@ -1,6 +1,5 @@
 const {
   RegExpMatcher,
-  TextCensor,
   englishDataset,
   englishRecommendedTransformers,
 } = require("obscenity");
