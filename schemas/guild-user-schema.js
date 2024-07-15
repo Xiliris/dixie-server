@@ -6,7 +6,7 @@ const reqString = {
 };
 
 const guildUserSchema = new mongoose.Schema({
-  userId: reqString,
+  discordId: reqString,
   guildId: reqString,
   warnings: {
     type: Array,
