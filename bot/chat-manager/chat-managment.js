@@ -9,6 +9,7 @@ const chatModules = {
   DISCORD_INVITES: require("./chat-modules/chat-discord-invites"),
   CAPS: require("./chat-modules/chat-caps"),
   MASS_MENTION: require("./chat-modules/chat-mass-mention"),
+  BLACKLISTED_WORDS: require("./chat-modules/chat-blacklisted-words"),
 };
 
 async function chatManagment(client, message) {
@@ -27,12 +28,28 @@ async function chatManagment(client, message) {
     return;
 
   for (const [key, module] of Object.entries(chatModules)) {
-    if (chatManagment[key]) {
+    let validModule = false;
+
+    if (chatManagment[key].disabledChannels.length != 0) {
       chatManagment[key].disabledChannels.forEach((channel) => {
         if (message.channel.id != channel.id) {
-          module(message, chatManagment[key]);
+          validModule = true;
         }
       });
+    } else {
+      validModule = true;
+    }
+
+    if (chatManagment[key].allowedRoles.length != 0) {
+      chatManagment[key].allowedRoles.forEach((role) => {
+        if (message.member.roles.cache.has(role.id)) {
+          validModule = false;
+        }
+      });
+    }
+
+    if (validModule) {
+      module(message, chatManagment[key]);
     }
   }
 }

@@ -11,10 +11,7 @@ const matcher = new RegExpMatcher({
 const errorMessage = require("../error-message");
 
 function chatBadWords(message, chatManagment) {
-  const { enabled, punish, time, allowedRoles, disabledChannels } =
-    chatManagment;
-
-  console.log(allowedRoles, disabledChannels);
+  const { enabled, punish, time } = chatManagment;
 
   if (!enabled) return;
 
