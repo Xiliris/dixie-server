@@ -12,6 +12,11 @@ const guildUserSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+  balance: {
+    type: Number,
+    required: true,
+    default: 0,
+  }
 });
 
 module.exports = mongoose.model("guild-user", guildUserSchema);
