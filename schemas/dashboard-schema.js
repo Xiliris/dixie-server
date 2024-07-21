@@ -55,11 +55,11 @@ const dashboardSchema = new mongoose.Schema({
     BLACKLISTED_WORDS: {
       ...chatManagement,
       blacklisted: {
-        type: Array,
-        default: [],
+        type: Array, 
         required: true,
-      },
-    },
+        default: []
+      }
+    }
   },
   welcomeGoodbye: {
     welcomeMessage: {
