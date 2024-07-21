@@ -1,4 +1,6 @@
-function banPunish() {}
+function banPunish(userId, reason, time) {
+  
+}
 
 function mutePunish() {}
 

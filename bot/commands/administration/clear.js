@@ -7,6 +7,15 @@ module.exports = {
       .setRequired(true)
   ),
   async execute(interaction) {
+    if (
+      !(
+        interaction.member.permissions.has("Administrator")
+      )
+    ) {
+      return interaction.reply(
+        "You do not have permission to use this command."
+      );
+    }
     const amount = interaction.options.getInteger('amount');
 
     if (amount < 1 || amount > 100) {

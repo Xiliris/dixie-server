@@ -4,6 +4,16 @@ module.exports = {
   data: new SlashCommandBuilder().setName("lock").setDescription("Locks the chat"),
   
   async execute(interaction) {
+    if (
+      !(
+        interaction.member.permissions.has("MuteMembers") ||
+        interaction.member.permissions.has("Administrator")
+      )
+    ) {
+      return interaction.reply(
+        "You do not have permission to use this command."
+      );
+    }
     try {
       const everyoneRole = interaction.guild.roles.everyone;
       await interaction.channel.permissionOverwrites.edit(everyoneRole, {

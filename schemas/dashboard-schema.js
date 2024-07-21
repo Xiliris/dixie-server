@@ -52,6 +52,14 @@ const dashboardSchema = new mongoose.Schema({
     DISCORD_INVITES: chatManagement,
     CAPS: chatManagement,
     MASS_MENTION: chatManagement,
+    BLACKLISTED_WORDS: {
+      ...chatManagement,
+      blacklisted: {
+        type: Array, 
+        required: true,
+        default: []
+      }
+    }
   },
   welcomeGoodbye: {
     welcomeMessage: {

@@ -20,13 +20,13 @@ module.exports = {
   async execute(interaction) {
     if (
       !(
-        interaction.member.permissions.has("KICK_MEMBERS") ||
-        interaction.member.permissions.has("BAN_MEMBERS") ||
-        interaction.member.permissions.has("ADMINISTRATOR")
+        interaction.member.permissions.has("KickMembers") ||
+        interaction.member.permissions.has("BanMembers") ||
+        interaction.member.permissions.has("Administrator")
       )
     ) {
       return interaction.reply(
-        "You do not have permission to use this command"
+        "You do not have permission to use this command."
       );
     }
 
