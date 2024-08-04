@@ -16,7 +16,12 @@ const guildUserSchema = new mongoose.Schema({
     type: Number,
     required: true,
     default: 0,
-  }
+  },
+  bank: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("guild-user", guildUserSchema);
